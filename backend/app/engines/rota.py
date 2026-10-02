@@ -1,11 +1,16 @@
 """Round-robin weekly chore assignments + swap legality."""
 
-def build_week_slots(member_ids: list[int], task_ids: list[int], days: int = 7) -> list[dict]:
-    """Assign each (day, task) to members in round-robin by task then day."""
+def build_week_slots(member_ids: list[int], task_ids: list[int], days: int = 7, phase: int = 0) -> list[dict]:
+    """Assign each (day, task) to members in round-robin by task then day.
+
+    phase: global rotation offset of this week's first slot — member for slot j is
+    member_ids[(phase + j) % len(member_ids)]. phase=0 reproduces the legacy
+    single-week behaviour (start from the head of the member list).
+    """
     if not member_ids or not task_ids:
         return []
     slots = []
-    idx = 0
+    idx = phase
     for day in range(days):
         for tid in task_ids:
             mid = member_ids[idx % len(member_ids)]
