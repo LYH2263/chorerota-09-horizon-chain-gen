@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import Weeks from './pages/Weeks.vue'
 import Board from './pages/Board.vue'
 import Members from './pages/Members.vue'
 import Tasks from './pages/Tasks.vue'
@@ -7,7 +8,8 @@ import Settings from './pages/Settings.vue'
 export default createRouter({
   history: createWebHistory(),
   routes: [
-    { path: '/', component: Board },
+    { path: '/', component: Weeks },
+    { path: '/weeks/:id', component: Board, props: true },
     { path: '/members', component: Members },
     { path: '/tasks', component: Tasks },
     { path: '/swaps', component: Swaps },
